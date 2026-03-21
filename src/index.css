@@ -1,0 +1,250 @@
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/500.css';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource-variable/syne';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    /* Фон страницы (body, .bg-wall, слияние с hero) */
+    --color-page-bg: #020202;
+    /* Чёрный янтарь: тёплый угольно-коричневый, не холодный графит */
+    --color-bg: #100c09;
+    --color-surface: #000000;
+    --color-surface-elevated: #000000;
+    --color-surface-hover: #2e241e;
+    --color-fg: #ffffff;
+    --color-fg-muted: #737373;
+    --color-fg-muted-light: #a3a3a3;
+    --color-border: rgba(255, 230, 210, 0.07);
+    --color-border-hover: rgba(255, 230, 210, 0.14);
+    --color-overlay: rgba(255, 255, 255, 0.03);
+    --color-overlay-hover: rgba(255, 255, 255, 0.05);
+    --color-overlay-strong: rgba(255, 255, 255, 0.1);
+    --color-accent: #b41d2e;
+    /* Темнее основного — hover кнопок */
+    --color-accent-dim: #8c1624;
+    --color-accent-glow: rgba(180, 29, 46, 0.28);
+    --color-scrollbar-thumb: rgba(255, 255, 255, 0.1);
+    --color-scrollbar-thumb-hover: rgba(255, 255, 255, 0.2);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    color: var(--color-fg);
+    background-color: var(--color-page-bg);
+    min-height: 100vh;
+  }
+
+  #root {
+    position: relative;
+    isolation: isolate;
+  }
+
+  ::selection {
+    background-color: rgba(180, 29, 46, 0.45);
+    color: var(--color-fg);
+  }
+}
+
+@layer components {
+  .glass {
+    background-color: var(--color-overlay);
+    @apply backdrop-blur-xl border;
+    border-color: var(--color-border);
+  }
+
+  .glass-hover {
+    @apply transition-all duration-300;
+  }
+
+  .glass-hover:hover {
+    background-color: var(--color-overlay-hover);
+    border-color: var(--color-border-hover);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center font-semibold px-8 py-3.5 rounded-xl;
+    @apply bg-accent;
+    color: white;
+    -webkit-text-stroke: 0;
+    paint-order: normal;
+    @apply hover:bg-accent-dim hover:shadow-glow active:scale-[0.98];
+    @apply transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center font-semibold px-8 py-3.5 rounded-xl;
+    border: 1px solid var(--color-border-hover);
+    color: var(--color-fg);
+    @apply bg-transparent;
+    -webkit-text-stroke: 0;
+    paint-order: normal;
+    @apply transition-all duration-200;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-overlay-hover);
+    border-color: rgba(180, 29, 46, 0.45);
+  }
+
+  /** Оболочка приложения */
+  .bg-wall {
+    background-color: var(--color-page-bg);
+  }
+
+  /**
+   * Плавный переход краёв lyufter_fon → фон страницы (без «шва»).
+   */
+  .hero-edge-fade {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* Чуть шире слева (рука/болгарка), уже справа — там тёмный край картинки */
+    background-image:
+      linear-gradient(to right, var(--color-page-bg) 0%, transparent 18%),
+      linear-gradient(to left, var(--color-page-bg) 0%, transparent 12%),
+      linear-gradient(to bottom, var(--color-page-bg) 0%, transparent 14%),
+      linear-gradient(to top, var(--color-page-bg) 0%, transparent 15%);
+    background-repeat: no-repeat;
+  }
+
+  .hero-readability-shade {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    /* rgba(2,2,2,…) = --color-page-bg */
+    background: linear-gradient(
+      to right,
+      rgba(2, 2, 2, 0.88) 0%,
+      rgba(2, 2, 2, 0.48) 42%,
+      transparent 100%
+    );
+  }
+
+  /**
+   * Единый стиль ссылок: без обводки, приглушённый текст → белый при наведении.
+   */
+  .app-link {
+    color: var(--color-fg-muted-light) !important;
+    -webkit-text-stroke: 0 !important;
+    paint-order: normal !important;
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .app-link:hover {
+    color: var(--color-fg) !important;
+  }
+
+  .app-link.underline-hover:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .app-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /** Текст внутри крупных карточек-ссылок — тот же тон, подсветка с родителем .group */
+  .app-link-face {
+    color: var(--color-fg-muted-light) !important;
+    -webkit-text-stroke: 0 !important;
+    paint-order: normal !important;
+    transition: color 0.2s ease;
+  }
+
+  .group:hover .app-link-face {
+    color: var(--color-fg) !important;
+  }
+
+  /** Логотип / превью только с картинкой */
+  .app-link-reset {
+    color: inherit !important;
+    -webkit-text-stroke: 0 !important;
+    paint-order: normal !important;
+    filter: none !important;
+  }
+
+  .app-link-reset:hover {
+    filter: none !important;
+  }
+
+  .app-link-reset:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .card {
+    @apply glass rounded-2xl p-6 lg:p-8;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .logo-theme {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+
+  .overlay-subtle {
+    background-color: var(--color-overlay);
+  }
+
+  .overlay-subtle-hover:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-scrollbar-thumb);
+  @apply rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-scrollbar-thumb-hover);
+}
+
+@layer utilities {
+  /** Явно #000 — совпадает с --color-surface для Tailwind bg-surface */
+  .bg-surface {
+    background-color: #000000;
+  }
+
+  /* Увеличенный безопасный отступ от краёв на мобильных */
+  @media (max-width: 639px) {
+    .px-4 {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  .bg-gradient-mesh {
+    background-image:
+      radial-gradient(at 40% 20%, rgba(180, 29, 46, 0.08) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgba(180, 29, 46, 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(255, 255, 255, 0.02) 0px, transparent 50%);
+  }
+}
