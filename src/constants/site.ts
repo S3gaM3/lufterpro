@@ -1,3 +1,5 @@
+import { asset } from '@/lib/asset'
+
 /** Локальные пути ассетов (public/). Сайт полностью автономен. */
 export const SITE = {
   baseUrl: 'https://lufter-tools.ru',
@@ -7,23 +9,23 @@ export const SITE = {
   /** Яндекс.Карты: точка как на виджете карты на сайте */
   addressMapUrl:
     'https://yandex.ru/maps/?pt=37.60253%2C55.60102&z=17&l=map',
-  /** Локальные ассеты */
-  pattern: '/images/pattern.jpg',
-  logo: '/images/logo.png',
-  brochure: '/buklet_2025_elektronnyj.pdf',
+  /** Локальные ассеты (asset() учитывает base path для GitHub Pages) */
+  pattern: asset('/images/pattern.jpg'),
+  logo: asset('/images/logo.png'),
+  brochure: asset('/buklet_2025_elektronnyj.pdf'),
   /** Баннеры разделов каталога */
-  imgDiscs: '/images/2_sajt_razdely_2.png',
-  imgCrowns: '/images/1_sajt_razdely_2.png',
+  imgDiscs: asset('/images/2_sajt_razdely_2.png'),
+  imgCrowns: asset('/images/1_sajt_razdely_2.png'),
   /** Фон блока «Оформить заказ» на главной */
-  orderSectionBackground: '/images/bg.png',
+  orderSectionBackground: asset('/images/bg.png'),
   /** Hero: баннер lyufter_fon (рабочий с болгаркой, искры, логотип) */
-  heroBanner: '/images/lyufter_fon.png',
-  heroBannerMobile: '/images/lyufter_fon_mobile.png',
+  heroBanner: asset('/images/lyufter_fon.png'),
+  heroBannerMobile: asset('/images/lyufter_fon_mobile.png'),
   /** Блок «О нас»: фото Максима */
-  aboutPhoto: '/images/maksim_dlya_sajta-ispravlennyj_montazhnaya_oblast_1_1.png',
-  iconWarehouse: '/images/warehouse.svg',
-  iconQuality: '/images/icon-quality.svg',
-  iconPrice: '/images/icon-price.svg',
+  aboutPhoto: asset('/images/maksim_dlya_sajta-ispravlennyj_montazhnaya_oblast_1_1.png'),
+  iconWarehouse: asset('/images/warehouse.svg'),
+  iconQuality: asset('/images/icon-quality.svg'),
+  iconPrice: asset('/images/icon-price.svg'),
   /** Маршруты */
   catalogDiscs: '/katalog-diskov',
   catalogCrowns: '/almaznye-koronki',

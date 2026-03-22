@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
 import { COPY } from '@/constants/site'
-import { fetchPublicContent } from '@/services/contentApi'
 import type { SiteEditableContent } from '@/types/content'
 
-const fallbackContent: SiteEditableContent = {
+const content: SiteEditableContent = {
   topBarAddressAriaLabel: 'Открыть адрес на карте',
   headerMenuDiscsLabel: 'Диски',
   headerMenuCrownsLabel: 'Коронки',
@@ -65,26 +63,6 @@ const fallbackContent: SiteEditableContent = {
   features: [...COPY.features],
 }
 
-export function useSiteContent() {
-  const [content, setContent] = useState<SiteEditableContent>(fallbackContent)
-
-  useEffect(() => {
-    let active = true
-
-    fetchPublicContent()
-      .then((data) => {
-        if (active) {
-          setContent(data)
-        }
-      })
-      .catch(() => {
-        // Если API недоступен, оставляем существующие локальные константы.
-      })
-
-    return () => {
-      active = false
-    }
-  }, [])
-
+export function useSiteContent(): SiteEditableContent {
   return content
 }

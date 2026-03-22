@@ -24,10 +24,6 @@ const ProductDetailPage = lazy(() =>
 const AgreementPage = lazy(() =>
   import('@/pages/AgreementPage').then((module) => ({ default: module.AgreementPage }))
 )
-const AdminPage = lazy(() =>
-  import('@/pages/AdminPage').then((module) => ({ default: module.AdminPage }))
-)
-
 function App() {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const content = useSiteContent()
@@ -41,8 +37,9 @@ function App() {
     setIsFeedbackOpen(true)
   }
 
+  const basename = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '/'
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <SeoDefaults />
       <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-wall">
@@ -56,7 +53,6 @@ function App() {
             <Route path="/almaznye-koronki" element={<CatalogCrownsPage />} />
             <Route path="/almaznye-koronki/:id" element={<ProductDetailPage />} />
             <Route path="/user/agreement" element={<AgreementPage />} />
-            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </Suspense>
         <Footer content={content} />
