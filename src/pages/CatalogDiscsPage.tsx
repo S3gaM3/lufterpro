@@ -1,8 +1,9 @@
-import { DISCS } from '@/data/catalog'
 import { SITE } from '@/constants/site'
 import { CatalogPageLayout } from '@/components/CatalogPageLayout'
+import { useProducts } from '@/hooks/useProducts'
 
 export function CatalogDiscsPage() {
+  const { discs, isLoading } = useProducts()
   return (
     <CatalogPageLayout
       type="discs"
@@ -11,7 +12,8 @@ export function CatalogDiscsPage() {
       breadcrumb="Алмазные диски"
       cardPathBase="/katalog-diskov"
       fallbackImage={SITE.imgDiscs}
-      items={DISCS}
+      items={discs}
+      isLoading={isLoading}
       showLineFilter
       seoPath={SITE.catalogDiscs}
     />

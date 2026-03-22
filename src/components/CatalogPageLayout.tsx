@@ -30,6 +30,7 @@ interface CatalogPageLayoutProps {
   cardPathBase: string
   fallbackImage: string
   items: CatalogItem[]
+  isLoading?: boolean
   showLineFilter?: boolean
   seoPath: string
 }
@@ -42,6 +43,7 @@ export function CatalogPageLayout({
   cardPathBase,
   fallbackImage,
   items,
+  isLoading = false,
   showLineFilter = false,
   seoPath,
 }: CatalogPageLayoutProps) {
@@ -100,7 +102,9 @@ export function CatalogPageLayout({
           onReset={resetFilters}
         />
 
-        {paginated.length > 0 ? (
+        {isLoading ? (
+          <div className="py-16 text-center text-muted-light">Загрузка каталога...</div>
+        ) : paginated.length > 0 ? (
           <motion.div variants={container} initial="hidden" animate="show" className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {paginated.map((product) => (
               <motion.div key={product.id} variants={item}>

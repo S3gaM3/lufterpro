@@ -4,5 +4,4 @@ dist
 .DS_Store
 scrape
 .env
-server/data
 server

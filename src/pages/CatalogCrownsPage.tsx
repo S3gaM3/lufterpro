@@ -1,8 +1,9 @@
-import { CROWNS } from '@/data/catalog'
 import { SITE } from '@/constants/site'
 import { CatalogPageLayout } from '@/components/CatalogPageLayout'
+import { useProducts } from '@/hooks/useProducts'
 
 export function CatalogCrownsPage() {
+  const { crowns, isLoading } = useProducts()
   return (
     <CatalogPageLayout
       type="crowns"
@@ -11,7 +12,8 @@ export function CatalogCrownsPage() {
       breadcrumb="Алмазные коронки"
       cardPathBase="/almaznye-koronki"
       fallbackImage={SITE.imgCrowns}
-      items={CROWNS}
+      items={crowns}
+      isLoading={isLoading}
       seoPath={SITE.catalogCrowns}
     />
   )

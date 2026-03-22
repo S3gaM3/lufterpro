@@ -1,12 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useMatch, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import {
-  getProductByCategory,
-  getProductImages,
-  type CatalogItem,
-  type ProductCategory,
-} from '@/data/catalog'
+import { getProductImages, type CatalogItem, type ProductCategory } from '@/data/catalog'
+import { useProducts } from '@/hooks/useProducts'
 import { SITE } from '@/constants/site'
 import { ProductWorkVideos } from '@/components/ProductWorkVideos'
 import { usePageSeo } from '@/seo/usePageSeo'
@@ -94,11 +90,10 @@ function ProductGallery({
 export function ProductDetailPage() {
   const { id } = useParams<{ id: string }>()
   const isCrownsRoute = Boolean(useMatch('/almaznye-koronki/:id'))
-  const category: ProductCategory = isCrownsRoute
-    ? 'crowns'
-    : 'discs'
-
-  const product = id ? getProductByCategory(category, id) : undefined
+  const category: ProductCategory = isCrownsRoute ? 'crowns' : 'discs'
+  const { discs, crowns, isLoading } = useProducts()
+  const items = category === 'discs' ? discs : crowns
+  const product = id ? items.find((p) => p.id === id) : undefined
   const fallbackPath = category === 'crowns' ? SITE.catalogCrowns : SITE.catalogDiscs
 
   const seoTitle = product ? `${product.name} | LUFTER` : 'Товар не найден | LUFTER'
@@ -137,6 +132,13 @@ export function ProductDetailPage() {
   )
   useJsonLd('product-jsonld', productJsonLd)
 
+  if (isLoading) {
+    return (
+      <main className="flex-1 py-24">
+        <div className="max-w-site mx-auto px-4 text-center text-muted-light">Загрузка...</div>
+      </main>
+    )
+  }
   if (!product) {
     return (
       <main className="flex-1 py-24">
