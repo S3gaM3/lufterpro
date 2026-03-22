@@ -9,20 +9,20 @@ export const SITE = {
   /** Яндекс.Карты: точка как на виджете карты на сайте */
   addressMapUrl:
     'https://yandex.ru/maps/?pt=37.60253%2C55.60102&z=17&l=map',
-  /** Локальные ассеты (asset() учитывает base path для GitHub Pages) */
-  pattern: asset('/images/pattern.jpg'),
-  logo: asset('/images/logo.png'),
+  /** Локальные ассеты (asset() учитывает base path для GitHub Pages). WebP для быстрой загрузки. */
+  pattern: asset('/images/pattern.webp'),
+  logo: asset('/images/logo.webp'),
   brochure: asset('/buklet_2025_elektronnyj.pdf'),
   /** Баннеры разделов каталога */
-  imgDiscs: asset('/images/2_sajt_razdely_2.png'),
-  imgCrowns: asset('/images/1_sajt_razdely_2.png'),
+  imgDiscs: asset('/images/2_sajt_razdely_2.webp'),
+  imgCrowns: asset('/images/1_sajt_razdely_2.webp'),
   /** Фон блока «Оформить заказ» на главной */
-  orderSectionBackground: asset('/images/bg.png'),
+  orderSectionBackground: asset('/images/bg.webp'),
   /** Hero: баннер lyufter_fon (рабочий с болгаркой, искры, логотип) */
-  heroBanner: asset('/images/lyufter_fon.png'),
-  heroBannerMobile: asset('/images/lyufter_fon_mobile.png'),
+  heroBanner: asset('/images/lyufter_fon.webp'),
+  heroBannerMobile: asset('/images/lyufter_fon_mobile.webp'),
   /** Блок «О нас»: фото Максима */
-  aboutPhoto: asset('/images/maksim_dlya_sajta-ispravlennyj_montazhnaya_oblast_1_1.png'),
+  aboutPhoto: asset('/images/maksim_dlya_sajta-ispravlennyj_montazhnaya_oblast_1_1.webp'),
   iconWarehouse: asset('/images/warehouse.svg'),
   iconQuality: asset('/images/icon-quality.svg'),
   iconPrice: asset('/images/icon-price.svg'),

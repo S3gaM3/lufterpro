@@ -11,15 +11,17 @@ npm run build  # сборка в dist/
 npm run preview # просмотр собранного
 ```
 
-## Изображения
+## Изображения (WebP)
 
-**Важно:** Файлы в `public/images/` должны быть в репозитории — иначе на GitHub Pages картинки не отобразятся.
+Картинки в формате WebP для быстрой загрузки.
 
-- `public/images/logo.png`, `pattern.jpg`, `lyufter_fon.png`, `lyufter_fon_mobile.png`, `bg.png` и др. (см. `src/constants/site.ts`)
-- `public/images/disks/{sku}.png` — фото дисков (например `002-125.png`)
-- `public/images/1_sajt_razdely_2.png`, `2_sajt_razdely_2.png` — для коронок и дисков
+- `public/images/logo.webp`, `pattern.webp`, `lyufter_fon.webp`, `lyufter_fon_mobile.webp`, `bg.webp` и др.
+- `public/images/disks/{sku}.webp` — фото дисков
+- `public/images/1_sajt_razdely_2.webp`, `2_sajt_razdely_2.webp` — баннеры каталога
 
-Запуск `node scripts/download-images.mjs` загружает изображения товаров в `public/images/disks/`. Остальные картинки добавьте вручную.
+**Команды:**
+- `npm run images:download` — загружает фото дисков с lufter-tools.ru и сохраняет как WebP
+- `npm run images:convert` — конвертирует существующие PNG/JPG в `public/images/` в WebP (удаляет оригиналы)
 
 ## Деплой
 

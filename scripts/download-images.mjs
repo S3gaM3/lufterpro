@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 /**
- * Скачивает изображения товаров с lufter-tools.ru в public/images/
+ * Скачивает изображения товаров с lufter-tools.ru в public/images/disks/ в формате WebP.
  */
-import { mkdir, writeFile } from 'fs/promises'
-import { createWriteStream } from 'fs'
+import { mkdir } from 'fs/promises'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
+import sharp from 'sharp'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 const DISKS_DIR = join(ROOT, 'public', 'images', 'disks')
-const CROWNS_DIR = join(ROOT, 'public', 'images', 'crowns')
 
 const DISK_IMAGES = [
   ['002-125', 'https://lufter-tools.ru/thumb/2/Y47a0hibWlNazrIomEHI3w/r/d/disk_almaznyj_lufter_basic_h12_125mm_002-125.png'],
@@ -101,26 +100,23 @@ const DISK_IMAGES = [
   ['001-250', 'https://lufter-tools.ru/thumb/2/5eQItVwy7V5gpJvXep4O7w/r/d/001-250.jpg'],
 ]
 
-async function download(url, filepath) {
+async function downloadAndConvert(sku, url) {
   const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } })
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`)
-  const buffer = await res.arrayBuffer()
-  await writeFile(filepath, Buffer.from(buffer))
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const buffer = Buffer.from(await res.arrayBuffer())
+  const webpPath = join(DISKS_DIR, `${sku}.webp`)
+  await sharp(buffer).webp({ quality: 82 }).toFile(webpPath)
 }
 
 async function main() {
   await mkdir(DISKS_DIR, { recursive: true })
-  await mkdir(CROWNS_DIR, { recursive: true })
-
   const seen = new Set()
   for (const [sku, url] of DISK_IMAGES) {
     if (seen.has(url)) continue
     seen.add(url)
-    const ext = url.endsWith('.jpg') ? 'jpg' : 'png'
-    const path = join(DISKS_DIR, `${sku}.${ext}`)
     try {
       console.log(`Downloading ${sku}...`)
-      await download(url, path)
+      await downloadAndConvert(sku, url)
     } catch (e) {
       console.error(`Failed ${sku}:`, e.message)
     }

@@ -2,7 +2,7 @@ import { asset } from '@/lib/asset'
 
 /**
  * Catalog data for discs and crowns.
- * Disc images: /images/disks/{sku}.png (or .jpg where specified)
+ * Disc images: /images/disks/{sku}.webp
  *
  * Видео работы (workVideos): URL mp4/webm в public (`/videos/...`) или полные ссылки;
  * поддерживаются ссылки YouTube (watch / youtu.be / embed) и Vimeo.
@@ -44,11 +44,9 @@ export function getProductByCategory(category: ProductCategory, id: string): Cat
 }
 
 function discImage(sku: string): string {
-  const jpgSkus = ['005-230', '005-400', '001-180', '001-200', '001-230', '001-250']
-  const ext = jpgSkus.includes(sku) ? '.jpg' : '.png'
   const imageSku =
     sku === '003-125' ? '003-232' : sku === '021-125' ? '021-115' : sku === '016-125-1' ? '016-125' : sku
-  return asset(`/images/disks/${imageSku}${ext}`)
+  return asset(`/images/disks/${imageSku}.webp`)
 }
 
 /** Diamond discs - 72 items */
@@ -165,8 +163,8 @@ export const DISCS: CatalogItem[] = [
 
 /** Diamond crowns - 4 items */
 export const CROWNS: CatalogItem[] = [
-  { id: '027-70', sku: '027-70', name: 'Алмазная коронка LUFTER 70мм', description: 'Для бурения бетона, кирпича, камня. Сегментная конструкция.', image: asset('/images/1_sajt_razdely_2.png') },
-  { id: '026-68', sku: '026-68', name: 'Алмазная коронка LUFTER 68мм', description: 'Для бурения отверстий в бетоне и армированных конструкциях.', image: asset('/images/1_sajt_razdely_2.png') },
-  { id: '026-72', sku: '026-72', name: 'Алмазная коронка LUFTER 72мм', description: 'Для бурения бетона, керамогранита. Высокая износостойкость.', image: asset('/images/1_sajt_razdely_2.png') },
-  { id: '026-82', sku: '026-82', name: 'Алмазная коронка LUFTER 82мм', description: 'Для бурения отверстий под трубы и коммуникации в твёрдых материалах.', image: asset('/images/1_sajt_razdely_2.png') },
+  { id: '027-70', sku: '027-70', name: 'Алмазная коронка LUFTER 70мм', description: 'Для бурения бетона, кирпича, камня. Сегментная конструкция.', image: asset('/images/1_sajt_razdely_2.webp') },
+  { id: '026-68', sku: '026-68', name: 'Алмазная коронка LUFTER 68мм', description: 'Для бурения отверстий в бетоне и армированных конструкциях.', image: asset('/images/1_sajt_razdely_2.webp') },
+  { id: '026-72', sku: '026-72', name: 'Алмазная коронка LUFTER 72мм', description: 'Для бурения бетона, керамогранита. Высокая износостойкость.', image: asset('/images/1_sajt_razdely_2.webp') },
+  { id: '026-82', sku: '026-82', name: 'Алмазная коронка LUFTER 82мм', description: 'Для бурения отверстий под трубы и коммуникации в твёрдых материалах.', image: asset('/images/1_sajt_razdely_2.webp') },
 ]
