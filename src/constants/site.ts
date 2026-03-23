@@ -2,7 +2,7 @@ import { asset } from '@/lib/asset'
 
 /** Локальные пути ассетов (public/). Сайт полностью автономен. */
 export const SITE = {
-  baseUrl: 'https://lufter-tools.ru',
+  baseUrl: 'https://lufterpro.ru',
   phoneDisplay: '8(800)500-58-51',
   phoneTel: 'tel:88005005851',
   leadEmail: 'info@lufter-tools.ru',
