@@ -1,8 +1,32 @@
-# newlufter — клиентский релиз (статический сайт)
+# newlufter — storefront + CMS
 
 Клиентская витрина LUFTER: каталог алмазных дисков и коронок, страницы товара, формы заявок.
 
-Текущий релиз **client-only**: backend в рамках этого релиза не используется.
+Репозиторий теперь поддерживает 2 контура:
+- публичная витрина (исходный сайт);
+- новая CMS с админ-панелью (`apps/admin`) и API (`apps/api`).
+
+## CMS quick start
+
+```bash
+# API
+cd apps/api
+cp .env.example .env
+npm install
+npm run prisma:generate
+npm run prisma:migrate
+npm run seed
+npm run dev
+
+# Admin
+cd ../admin
+npm install
+npm run dev
+```
+
+По умолчанию:
+- API: `http://localhost:4001/api`
+- Admin: `http://localhost:5174`
 
 ## Локальный запуск
 
@@ -42,6 +66,14 @@ npm run preview
 ## Деплой
 
 `dist/` публикуется как статика на GitHub Pages через workflow в `.github/workflows/client.yml`.
+
+Для CMS-деплоя на reg.ru (ISPmanager + phpMyAdmin) используйте:
+- `docs/deploy-reg-ru-ispmanager.md`
+
+## GitHub Actions
+
+- `/.github/workflows/ci.yml` — общий CI монорепо (storefront + admin + api).
+- `/.github/workflows/client.yml` — сборка и публикация витрины в GitHub Pages.
 
 ## Smoke checklist (перед релизом)
 

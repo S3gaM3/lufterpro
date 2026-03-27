@@ -1,4 +1,5 @@
 import { asset } from '@/lib/asset'
+import { typographText } from '@/lib/typography'
 
 /** Локальные пути ассетов (public/). Сайт полностью автономен. */
 export const SITE = {
@@ -42,7 +43,7 @@ export const SITE = {
     'https://yandex.ru/map-widget/v1/?ll=37.60253%2C55.60102&z=17&pt=37.60253%2C55.60102%2Cpm2rdm',
 } as const
 
-export const COPY = {
+const RAW_COPY = {
   heroTitle: 'Профессиональный инструмент',
   heroLead: `«LUFTER» - одна из 13 крупнейших в мире и лидирующая компания в Китае‚ специализирующаяся в разработке, производстве и продаже алмазных инструментов и твердосплавных инструментов.
 Обладает производственными мощностями в Америке и Сингапуре, а также имеет свои производственные линии в Европе. Товарный знак «LUFTER» известен всему Китаю и за рубежом.`,
@@ -68,3 +69,5 @@ export const COPY = {
     },
   ],
 } as const
+
+export const COPY = typographText(RAW_COPY)

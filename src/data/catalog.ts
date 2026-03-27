@@ -1,4 +1,5 @@
 import { asset } from '@/lib/asset'
+import { typographText } from '@/lib/typography'
 
 /**
  * Catalog data for discs and crowns.
@@ -213,5 +214,5 @@ function withLongDescriptions(items: CatalogItem[]): CatalogItem[] {
   }))
 }
 
-export const DISCS: CatalogItem[] = withLongDescriptions(DISCS_RAW)
-export const CROWNS: CatalogItem[] = withLongDescriptions(CROWNS_RAW)
+export const DISCS: CatalogItem[] = typographText(withLongDescriptions(DISCS_RAW))
+export const CROWNS: CatalogItem[] = typographText(withLongDescriptions(CROWNS_RAW))

@@ -1,7 +1,8 @@
 import { COPY } from '@/constants/site'
+import { typographText } from '@/lib/typography'
 import type { SiteEditableContent } from '@/types/content'
 
-const content: SiteEditableContent = {
+const rawContent: SiteEditableContent = {
   topBarAddressAriaLabel: 'Открыть адрес на карте',
   headerMenuDiscsLabel: 'Диски',
   headerMenuCrownsLabel: 'Коронки',
@@ -62,6 +63,8 @@ const content: SiteEditableContent = {
   feedbackSubmittingLabel: 'Отправка...',
   features: [...COPY.features],
 }
+
+const content = typographText(rawContent)
 
 export function useSiteContent(): SiteEditableContent {
   return content

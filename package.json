@@ -3,10 +3,24 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "vite",
+    "dev:admin": "npm run dev -w apps/admin",
+    "dev:api": "npm run dev -w apps/api",
     "build": "tsc -b && vite build",
+    "build:admin": "npm run build -w apps/admin",
+    "build:api": "npm run build -w apps/api",
     "lint": "eslint .",
+    "lint:admin": "npm run lint -w apps/admin",
+    "lint:api": "npm run lint -w apps/api",
+    "ci:storefront": "npm run lint && npm run build",
+    "ci:admin": "npm run lint:admin && npm run build:admin",
+    "ci:api": "npm run lint:api && npm run prisma:generate -w apps/api && npm run build:api",
+    "ci:all": "npm run ci:storefront && npm run ci:admin && npm run ci:api",
     "preview": "vite preview",
     "images:download": "node scripts/download-images.mjs",
     "images:convert": "node scripts/convert-to-webp.mjs"
@@ -38,5 +52,17 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.15.0",
     "vite": "^5.4.10"
-  }
+  },
+  "description": "newlufter storefront + CMS monorepo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S3gaM3/newlufter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/S3gaM3/newlufter/issues"
+  },
+  "homepage": "https://github.com/S3gaM3/newlufter#readme"
 }
