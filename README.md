@@ -1,32 +1,6 @@
-# newlufter — storefront + CMS
+# LUFTER — витрина (клиент)
 
-Клиентская витрина LUFTER: каталог алмазных дисков и коронок, страницы товара, формы заявок.
-
-Репозиторий теперь поддерживает 2 контура:
-- публичная витрина (исходный сайт);
-- новая CMS с админ-панелью (`apps/admin`) и API (`apps/api`).
-
-## CMS quick start
-
-```bash
-# API
-cd apps/api
-cp .env.example .env
-npm install
-npm run prisma:generate
-npm run prisma:migrate
-npm run seed
-npm run dev
-
-# Admin
-cd ../admin
-npm install
-npm run dev
-```
-
-По умолчанию:
-- API: `http://localhost:4001/api`
-- Admin: `http://localhost:5174`
+Статический сайт: каталог алмазных дисков и коронок, карточка товара, формы заявок через `mailto`.
 
 ## Локальный запуск
 
@@ -38,53 +12,32 @@ npm run build
 npm run preview
 ```
 
-## Что включено в релиз
+## Сборка
 
-- SPA на React + TypeScript + Vite
-- каталоги дисков и коронок
-- карточка товара
-- формы обратной связи с fallback через `mailto`
-- SEO-базис: meta/canonical/robots/sitemap
-- базовые a11y улучшения
+- `npm run build` — артефакты в `dist/`.
+- Для GitHub Pages с **своим доменом** в CI задано `BASE_PATH=/` (см. `.github/workflows/client.yml`).
 
-## Ассеты
+## Что в проекте
 
-- Ассеты подключаются из `public/`.
-- Для отсутствующих изображений используется безопасный плейсхолдер, чтобы не было критичных 404 на ключевых маршрутах.
-- Скрипты ассетов:
-  - `npm run images:download`
-  - `npm run images:convert`
+- React + TypeScript + Vite
+- каталоги дисков и коронок, карточка товара
+- SEO: meta, canonical, `public/robots.txt`, `public/sitemap.xml`
+- ассеты в `public/`
 
-## Видео работы
+## Ассеты и медиа
 
-- Клиенты сайта ничего не загружают.
-- Ролики добавляет только администратор, у которого есть доступ к файлам проекта.
-- Допустимые источники:
-  - локальные файлы в `public/videos/...` (ссылки вида `/videos/....mp4`)
-  - внешние `https://` ссылки YouTube/Vimeo
+- `npm run images:download`, `npm run images:convert`
+- Видео: локальные файлы в `public/videos/...` или внешние ссылки (см. `src/lib/videoUrls.ts`)
 
 ## Деплой
 
-`dist/` публикуется как статика на GitHub Pages через workflow в `.github/workflows/client.yml`.
+Публикация **GitHub Pages** через Actions: `.github/workflows/client.yml` (артефакт `dist`).
 
-Для CMS-деплоя на reg.ru (ISPmanager + phpMyAdmin) используйте:
-- `docs/deploy-reg-ru-ispmanager.md`
+В репозитории: **Settings → Pages → Build and deployment: GitHub Actions**.
 
-## GitHub Actions
+## Проверка перед релизом
 
-- `/.github/workflows/ci.yml` — общий CI монорепо (storefront + admin + api).
-- `/.github/workflows/client.yml` — сборка и публикация витрины в GitHub Pages.
-
-## Smoke checklist (перед релизом)
-
-- `npm run lint` проходит без ошибок
-- `npm run build` проходит без ошибок
-- открываются маршруты:
-  - `/`
-  - `/katalog-diskov`
-  - `/almaznye-koronki`
-  - `/user/agreement`
-- карточка товара открывается из каждого каталога
-- формы (главная, футер, модалка) открывают почтовый клиент через `mailto`
-- на ключевых экранах нет битых изображений (подставляется плейсхолдер)
-- `robots.txt` и `sitemap.xml` доступны из `public/`
+- `npm run ci` (lint + build)
+- маршруты `/`, `/katalog-diskov`, `/almaznye-koronki`, `/user/agreement`
+- формы открывают почтовый клиент
+- нет битых картинок на ключевых экранах (есть плейсхолдер)
